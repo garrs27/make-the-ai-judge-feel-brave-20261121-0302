@@ -28,6 +28,12 @@ TEXT = (
 )
 
 
+# The competition gate: 1-280 Unicode code points, UTF-8, not only whitespace.
+# Fail fast here instead of shipping an entry the grader would reject.
+assert 1 <= len(TEXT) <= 280 and TEXT.strip(), "text violates the entry gate"
+assert TEXT.encode("utf-8"), "text is not UTF-8 encodable"
+
+
 def destination():
     folder = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
     return Path(folder) / "entry.txt"
